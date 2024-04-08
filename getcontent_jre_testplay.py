@@ -1,15 +1,12 @@
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.edge.options import Options
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.edge.service import Service
 import os
 from datetime import date
 
 import pandas as pd
 import requests
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 import Py_Mods.read_postgrest_conf as pg_conf
 
@@ -19,6 +16,14 @@ I'm hoping that this will be easy to do on the virtual machine as well.
 https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/?form=MA13LH
 """
 
+""" Notes 08042024
+Adapated the curl requests to use text/csv and used panadas to.csv
+used pandas to cooerce fields to numeric to drop strings.
+found was using measurement_unit when field name in postgres is measure_unit
+the csv importer appeared to import all non-string obs_values into the dataset successfully.
+
+
+"""
 download_dir = os.path.dirname(os.path.realpath(__file__))
 lawa_url = "https://www.lawa.org.nz/download-data/"
 
@@ -97,10 +102,31 @@ url = 'http://localhost:3000/data'
 
 
 def db_commit(db_data):
+    # data = HTTPHeaderDict()
+    # for key,value in db_data.items():
+    #     data.add(f'{key}', f'{value}')
+    print(db_data)
+    print(type(db_data))
+    headers = {
+        'Authorization': f'Bearer {curl_token}',
+        'Content-Type': 'text/csv'
+
+    }
+    """
+    text/csv example
+    first row = fields
+    second row = columns
+    """
+
     """ commit data to the actual database """
+    # print(db_data)
+    print(type(db_data))
+    # db_data = """obs_value,measure_unit\n10.5,Chlorine\n200.5, Magnesium'"""
+    # db_data = """obs_value,measure_unit\nDetect,E.coli\n287.55,Electrical conductivity\n11.25,Nitrate nitrogen\n18.35,Chloride\n"""
+    print(db_data)
     r = requests.post(url,
-                      headers={'Authorization': f'Bearer {curl_token}'},
-                      json=db_data  # from payload_data
+                      headers=headers,
+                      data=db_data  # from payload_data
                       )
     print(r.status_code)
 
@@ -113,27 +139,39 @@ def prepare_data(dataset):
     :param dataset:
     :return:
     """
+    # payload_data = []
     # print(dataset)
     # convert to dictionary
-    dataset = dataset.to_dict("index")
+    # dataset = dataset.to_csv()
+    # drop fields with detect
+    drop_fields = ['Detect', 'NonDetect']
 
-    print(dataset)
+    dataset['obs_value'] = pd.to_numeric(dataset['obs_value'], errors='coerce')
+    # Drop rows where 'obs_value' is NaN (i.e., rows with non-numeric values)
+    dataset = dataset.dropna(subset=['obs_value'])
+
+    payload_data = pd.DataFrame(
+        {
+            'obs_value': dataset["obs_value"],
+            'measure_unit': dataset["measurement_unit"]
+        }
+    ).to_csv(index=False)
+
+    print(payload_data)
     # problem with obs time.
+    m_unit = []
+    obs_value = []
+    # shape the dataset for pandas dataframe.
 
-    for key, value in dataset.items():
-
-        # get the appropriate fields.
-        # ignoring detect for now
-        if isinstance(value["obs_value"], (int, float)):
-            m_unit = value["measurement_unit"]
-            obs_value = value["obs_value"]
-            # m_unit.append(value["measurement_unit"])
-            # obs_value.append(value["obs_value"])
-            payload_data = {
-                "measure_unit": m_unit,
-                "obs_value": obs_value,
-            }
-            db_commit(payload_data)
+    # for key, value in dataset.items():
+    #     # get the appropriate fields.
+    #     # ignoring detect for now
+    #     if isinstance(value["obs_value"], (int, float)):
+    #         m_unit.append(value["measure_unit"])
+    #         obs_value.append(value["obs_value"])
+    # payload_data = pd.
+    # payload_data.to_csv('csv_data.csv')
+    db_commit(payload_data)
 
 
 prepare_data(curl_data)
