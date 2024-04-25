@@ -20,3 +20,14 @@ relevant variables to our problem.
 # Tuesday,  02 April 2024
 Set up readme and project diary in github,
 Currently work in progress.
+
+# Thursday, 25 April 2024
+Assigned more tasks in our group meeting, 
+Julian - regulations for the observation values
+Use the government regulations to create an indication on if the value means the water is safe
+
+JacobC - scraping well data (mainly for long/latitude)
+Attempting to use ECAN data to produce reports on Wells that we can use for location data in regions
+
+JacobR - fix postgres issues, look into automation of postgesql token creation, sort out automation processes
+find out why the postgres token is failing and create automated processes for configuration of each step of the data collection.
