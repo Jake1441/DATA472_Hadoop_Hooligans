@@ -1,9 +1,9 @@
  #!/bin/bash
  #measure_unit,obs_value
  
- # if this doesnt work make sure the role in jwt matched the role you chose for the user accessing the tale!
- 
-export TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZGF0YV91c2VyIn0.4HFMI2Rnen8KvNbmKzkO8y9hraTDzqf0s1QWE4wzHDg"
+ # if this doesnt work make sure the role in jwt matched the role you chose for the user accessing the table!
+
+export TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZGF0YV91c2VyIn0.wtvgPKgvVPMa0QqbVd2D9TllPOX6C-lTq44l66FhSdM"
 curl http://localhost:3000/data -X POST \
      -H "Authorization: Bearer $TOKEN"   \
      -H "Content-Type: application/json" \
@@ -30,5 +30,5 @@ curl "http://localhost:3000/data" \
   }
 EOF
 
-# query the database
+# example query the database
 curl "http://localhost:3000/data?select=obs_value,obs_timestamp&measure_unit=eq.USD"

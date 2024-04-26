@@ -1,4 +1,4 @@
-# this file reads the postrest configuration
+# this file reads the postgrest configuration
 
 def open_pg_conf(file_name, key_name, starting_line="export"):
     """
