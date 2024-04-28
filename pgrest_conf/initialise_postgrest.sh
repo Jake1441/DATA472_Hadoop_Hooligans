@@ -14,13 +14,19 @@ docker stop tutorial
 # docker ps -aq shows all containers but only ids. docker ps -a usually only shows running containers.
 docker rm $(docker ps -aq)
 
-
+if [ -x "$(command -v docker)" ]; then
+	echo "Docker installed! making sure docker is started!"
+	sudo service docker start
+	else
+		echo "docker not installed!"
+		exit
+fi
 # this command creates the tutorial posgres docker
 sudo docker run --name tutorial -p 5433:5432 \
                 -e POSTGRES_PASSWORD=mysecretpassword \
                 -d postgres
-
-
+echo "Waiting 10 seconds for postgres to start!"
+sleep 10s
 #  sudo docker exec -ti tutorial psql -U postgres 
 # test create schema
 cat << EOF | sudo docker exec -i tutorial psql -U postgres 
@@ -32,6 +38,8 @@ create schema datab1;
 create table datab1.data (
   id serial primary key,
   obs_value numeric not null default 0,
+  date timestamp,
+  Unit numeric not null default 0,
   measure_unit text not null,
   obs_timestamp timestamptz
 );
@@ -118,4 +126,6 @@ echo "jwt-secret = \"$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c32)\""
 # Running postgrest installed from a package manager
 # when happy uncomment this line below.
 # postgrest tutorial.conf
+wget https://github.com/PostgREST/postgrest/releases/download/v12.0.2/postgrest-v12.0.2-linux-static-x64.tar.xz -O postgrest-v12.0.2-linux-static-x64.tar.xz
+tar -xvfpostgrest-v12.0.2-linux-static-x64.tar.xz
 sh start_postgres.sh
