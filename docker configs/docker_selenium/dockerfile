@@ -1,8 +1,6 @@
 # modified from https://github.com/kevinhowbrook/Selenium-Python-Docker-scraper/blob/master/Dockerfile
 
 FROM python:latest
-WORKDIR /python_scrape
-COPY ./requirements.txt /python_scrape
 #  install required linux packages
 RUN apt-get update \
     && apt-get -y install gcc make \
@@ -10,13 +8,15 @@ RUN apt-get update \
 # install google chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get -y update
-RUN apt-get install xvfb -y
-RUN apt-get install -y google-chrome-stable
+RUN apt-get -y update; \
+	apt-get install xvfb -y; \
+	apt-get install -y google-chrome-stable
 # run pip required commands
 
 RUN pip install --no-cache-dir --upgrade pip
-RUN pip install openpyxl PyVirtualDisplay
+WORKDIR /python_scrape
+COPY ./requirements.txt /python_scrape
 RUN pip install --no-cache-dir -r requirements.txt
+
 # cause a loop so docker does not close - disabled for now.
 CMD tail -f /dev/null
