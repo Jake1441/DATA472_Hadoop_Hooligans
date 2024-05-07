@@ -19,11 +19,10 @@ git push origin $new_branch
 cd "$working_dir"
 git add .
 # git commit -m "$new_commit_message"
-
+#git push origin $new_branch
 #git switch $current_branch
 
 # upload branch to remote
-#git push origin $new_branch
 #git pull origin $current_branch
 
 # when done
