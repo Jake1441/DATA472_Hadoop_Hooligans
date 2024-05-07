@@ -21,6 +21,8 @@ git add .
 
 #git switch $current_branch
 
+# push to remote
+
 #git push origin $current_branch
 #git pull origin $new_branch
 
