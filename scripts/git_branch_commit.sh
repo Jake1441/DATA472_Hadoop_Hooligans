@@ -23,7 +23,7 @@ git add .
 #git switch $current_branch
 
 # upload branch to remote
-#git pull origin $current_branch
+#git pull origin $new_branch
 
 # when done
 # git branch -d $new_branch
