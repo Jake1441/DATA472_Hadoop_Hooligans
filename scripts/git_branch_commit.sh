@@ -14,17 +14,15 @@ git branch $new_branch
 git checkout $new_branch
 
 # when changing need to go back to root git.
-
 cd "$working_dir"
 git add .
 # git commit -m "$new_commit_message"
 
 #git switch $current_branch
 
-# push to remote
-
-#git push origin $current_branch
-#git pull origin $new_branch
+# upload branch to remote
+#git push origin $new_branch
+#git pull origin $current_branch
 
 # when done
 # git branch -d $new_branch
