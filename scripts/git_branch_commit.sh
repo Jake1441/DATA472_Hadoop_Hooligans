@@ -20,8 +20,9 @@ git add .
 # git commit -m "$new_commit_message"
 
 #git switch $current_branch
-#git pull origin $new_branch
+
 #git push origin $current_branch
+#git pull origin $new_branch
 
 # when done
 # git branch -d $new_branch
