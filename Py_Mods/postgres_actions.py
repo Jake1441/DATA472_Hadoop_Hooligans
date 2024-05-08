@@ -2,7 +2,7 @@ import requests
 
 import Py_Mods.read_postgrest_conf as pg_conf
 
-curl_token = pg_conf.open_pg_conf("pgrest_conf/test_curl_post.sh", "TOKEN")
+curl_token = pg_conf.open_pg_conf("pgrest_conf/start_postgres.sh", "token")
 url = 'http://localhost:3000/data'
 
 
