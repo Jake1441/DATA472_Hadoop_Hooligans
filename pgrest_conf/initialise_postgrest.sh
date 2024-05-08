@@ -104,4 +104,4 @@ JSON_STRING=$( jq -n \
 
 echo "$JSON_STRING" > db_params.json
 
-sh start_postgres.sh
+source start_postgres.sh
