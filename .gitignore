@@ -1,5 +1,6 @@
 *.tar.xz
 tutorial.conf
 postgrest
+db_params.json
 /.idea/
 /.venv/
