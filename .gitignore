@@ -4,3 +4,4 @@ postgrest
 db_params.json
 /.idea/
 /.venv/
+/src/pgrest_conf/dataset/
