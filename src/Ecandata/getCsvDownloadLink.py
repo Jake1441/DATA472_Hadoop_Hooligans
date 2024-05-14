@@ -13,7 +13,7 @@ def get_csv_download_link(link, ID):
     """This Function takes the well link from the well code (and the ID), and returns the direct download link of the most recent csv report"""
     chrome_options = Options()
     chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--headless=new")
+    #chrome_options.add_argument("--headless=new")
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
     driver.get(link)
     water_qual_xpath = """//*[@id="main"]/div/ul/li[5]"""

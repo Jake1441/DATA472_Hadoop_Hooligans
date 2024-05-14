@@ -25,7 +25,7 @@ print("Do not use this file, it does nothing")
 #     """This function takes a well code and returns the url (and the ID) of the most recent water quality report"""
 #     chrome_options = Options()
 #     chrome_options.add_argument("--disable-extensions")
-#     chrome_options.add_argument("--headless=new")
+#     #chrome_options.add_argument("--headless=new")
 
 #     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
 #     baseurl = "https://www.ecan.govt.nz/data/well-search/"
@@ -108,4 +108,4 @@ print("Do not use this file, it does nothing")
 # 'K38/0066',
 # 'BW24/0274'] # Some codes for testing if you want to
 
-# #get_and_download_well_info(example_codes)
+# # #get_and_download_well_info(example_codes)

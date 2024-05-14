@@ -30,4 +30,4 @@ def get_ecan_data():
     return df
 
 
-#print(get_ecan_data())
+print(get_ecan_data())

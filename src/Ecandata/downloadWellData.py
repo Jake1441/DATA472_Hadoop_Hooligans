@@ -3,6 +3,7 @@ import getCsvDownloadLink
 import getObservationLink
 import time
 
+
 SCRAP_DELAY = 2  #seconds
 
 def get_and_download_well_info(codes):
@@ -17,14 +18,14 @@ def get_and_download_well_info(codes):
              print(f"There was an error: {e} when trying to download the code: {code}")
     return 1
 
-if __name__ == "__main__":
-    example_codes = ['I39/0007',
-    'H38/0004',
-    'J40/0217',
-    'N33/0212', 
-    'K37/0243',
-    'CB19/5076',
-    'K38/0066',
-    'K38/0066',
-    'BW24/0274'] # Some codes for testing if you want to
-    get_and_download_well_info(example_codes)
+# if __name__ == "__main__":
+#     example_codes = ['I39/0007',
+#     'H38/0004',
+#     'J40/0217',
+#     'N33/0212', 
+#     'K37/0243',
+#     'CB19/5076',
+#     'K38/0066',
+#     'K38/0066',
+#     'BW24/0274'] # Some codes for testing if you want to
+#     get_and_download_well_info(example_codes)
