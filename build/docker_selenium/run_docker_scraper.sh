@@ -10,8 +10,10 @@ fname="ecanmain.py"
 docker rmi selenium-headless-d472
 docker build . -t selenium-headless-d472
 docker run -d --name selcontainer selenium-headless-d472
-docker cp scripts/ selcontainer:/python_scrape/
-docker exec -it selcontainer python /python_scrape/scripts/$fname
+pyfiles=$(find ../../src/Ecandata/ ../../src/Lawadata/ -maxdepth 1 -name *.py -type f)
+for fileName in $pyfiles; do docker cp $fileName selcontainer:/python_scrape/ ; done
+
+docker exec -it selcontainer python /python_scrape/$fname
 # copy file out of docker container (may need to be a for loop if theres multiple files as not tested!)
 #docker cp selcontainer:/python_scrape/$(docker exec -i selcontainer find . -name *.xlsx | sed 's/^.\///') .
 docker cp selcontainer:/python_scrape/ docker_output/
