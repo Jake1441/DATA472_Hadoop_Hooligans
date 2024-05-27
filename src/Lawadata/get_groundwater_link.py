@@ -1,5 +1,3 @@
-
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -17,8 +15,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-
-
 
 def lawa_download_link_groundwater() -> str:
     lawa_url = "https://www.lawa.org.nz/download-data/"

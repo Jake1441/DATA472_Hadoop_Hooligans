@@ -11,9 +11,10 @@ def download_excel_workbook(url, ID):
 
     print(f"Downloading content from {url}")
     response = requests.get(url)
-    print(url.endswith)
+    #print(url.endswith)
     new_id = ID.replace('/', '-')
     file_path = os.path.join(directory, f'{new_id}.csv')
     with open(file_path, 'wb') as f: #Its safer to write the dataset to disk first, then read it into pandas
                 f.write(response.content)
+    print(f"File was written at location {file_path}")
     return 1
