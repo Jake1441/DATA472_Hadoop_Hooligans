@@ -27,3 +27,6 @@ git add .
 
 # when done
 # git branch -d $new_branch
+
+# finalise by closing out the remote branch
+# git push origin -d $new_branch
