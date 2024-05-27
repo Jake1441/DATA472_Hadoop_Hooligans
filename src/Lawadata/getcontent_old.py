@@ -1,5 +1,5 @@
-print("Don't Use this file. Its not used anymore")
-
+print("Don't use this file, this is old version")
+assert False
 # from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
 # from selenium.webdriver.common.by import By

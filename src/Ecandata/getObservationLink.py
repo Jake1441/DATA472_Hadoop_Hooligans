@@ -14,6 +14,7 @@ def get_obs_link(well_code):
     """This function takes a well code and returns the url (and the ID) of the most recent water quality report"""
     chrome_options = Options()
     chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--headless")
     #chrome_options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
