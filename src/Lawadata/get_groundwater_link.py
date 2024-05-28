@@ -24,8 +24,10 @@ def lawa_download_link_groundwater() -> str:
     chrome_options = Options()
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument("--disable-dev-shm-usage")
     
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(lawa_url)
 
     ground_water_xpath = """//*[@id="body"]/div[2]/div/div/div[4]/div[1]/div/a"""

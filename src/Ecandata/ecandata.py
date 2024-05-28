@@ -6,7 +6,6 @@ import requests
 import json
 
 import requests
-from graphql import build_client_schema, GraphQLSchema, print_schema, parse, execute
 
 url = "https://gis.ecan.govt.nz/arcgis/rest/services/Public/Groundwater/MapServer/19/query?outFields=*&where=1%3D1&f=geojson"
 
@@ -23,11 +22,11 @@ def get_ecan_data():
             'ID': properties['ID'],
             'Well_No': properties['Well_No'],
             'Primary_Use': properties['Primary_Use'],
+            'Secondary_Use': properties['Second_Use'],
             'WGS84_LONGITUDE': longitude,
-            'WGS84_LATITUDE': latitude
+            'WGS84_LATITUDE': latitude,
+            'Link':properties["Link"]
         })
     df = pd.DataFrame(extracted_data)
     return df
 
-
-print(get_ecan_data())

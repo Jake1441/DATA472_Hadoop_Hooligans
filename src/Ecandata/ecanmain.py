@@ -1,36 +1,32 @@
-import ecandata
-import ecanwrangle
-from getObservationLink import get_obs_link
-from ecandata import get_ecan_data
-from downloadCsv import download_excel_workbook
-from pyvirtualdisplay import Display
-import getObservationLink
-import getCsvDownloadLink
-import downloadCsv
+"""Main script for Sourcing the Ecan Data, Run as a module"""
+from .ecanwrangle import clean_ecan
+from .ecandata import get_ecan_data
+from .downloadCsv import download_excel_workbook
+from .getCsvDownloadLink import get_csv_download_link
 import time
-import random
 
-"""Main script for the creation of water reports for ecan data"""
-DELAY_LOWER, DELAY_UPPER = 2.0, 2.5
+SCRAP_DELAY = 2
+
+
+
 def create_water_reports() -> None:
+    """Query Ecan API and build up a dataframe of Wells, then create a list of well links and ids and iteratively 
+        Scrap the data on each well from the Ecan website. Creates a folder of csvs one for each well"""
+    all_ecan_data = get_ecan_data()
     
-    # Get the Ecan data from their api, this graps all the current wells/bores in use even the ones we don't care about
-    all_ecan_data = ecandata.get_ecan_data()
-
-    #Using the ecanwrangle file to filter out the rows (the wells/bores) that we don't need because people aren't drinking the water from these
-    wrangled_ecan_data = ecanwrangle.clean_ecan(all_ecan_data)
-    #Finally using the well search to take all of the wells/bores and write their latest information, this function just returns a dummy value of 1
-    codes = wrangled_ecan_data['Well_No'].tolist() #codes are the well IDS
-    print(f"Found {len(codes)} many codes")
-    for code in codes:
+    wrangled_ecan_data = clean_ecan(all_ecan_data)
+    codes = wrangled_ecan_data['Well_No'].tolist() 
+    links = wrangled_ecan_data['Link'].tolist()
+    #print(codes)
+    #print(links)
+    for link,code in zip(links, codes):
         try:
-            well_link, ID = getObservationLink.get_obs_link(code)
-            csv_link, ID = getCsvDownloadLink.get_csv_download_link(well_link, ID)
-            downloadCsv.download_excel_workbook(csv_link, ID)
-            time.sleep(random.uniform(DELAY_LOWER,DELAY_UPPER)) # don't get banned that would be bad, also don't let them catch us 
+            csv_link = get_csv_download_link(link) 
+            download_excel_workbook(csv_link, code)
+            time.sleep(SCRAP_DELAY)
         except Exception as e:
              print(f"There was an error: {e} when trying to download the code: {code}")
     
 
 
-create_water_reports()
+#create_water_reports()
