@@ -9,3 +9,8 @@
     name: "{{ docker_user }}"
     groups: docker
     append: yes
+
+- name: Force new group membership for the current session
+  ansible.builtin.shell:
+    cmd: "sg docker newgrp docker << EOF\nid\nEOF"
+  become_user: "{{ docker_user }}"
