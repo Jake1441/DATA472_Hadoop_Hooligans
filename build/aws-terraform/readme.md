@@ -15,3 +15,6 @@ type yes.
 
 the instance will be created with the DATA472 group with
 public facing ip using ubuntu.
+
+If you truly trust terraform  you can use 
+terraform apply --auto-approve.

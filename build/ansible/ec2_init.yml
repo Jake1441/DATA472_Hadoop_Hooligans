@@ -1,0 +1,17 @@
+---
+- name: admin packages
+  hosts: localhost
+  roles:
+    - distupgrade
+
+- name: Install docker only
+  hosts: localhost
+  become: true
+  roles:
+    - docker-role
+
+- name: Install log server only
+  hosts: localhost
+  become: true
+  roles:
+    - logstash

@@ -1,7 +1,7 @@
 variable "name" {
   description = "Value of the Name tag for the EC2 instance"
   type        = string
-  default     = "DATA472-jcl173-testserver"
+  default     = "DATA472-jre141-hdg-controller"
 }
 
 variable "course" {
@@ -13,7 +13,7 @@ variable "course" {
 variable "username" {
   description = "The student or user name"
   type        = string
-  default     = "jcl173"
+  default     = "jre141"
 }
 
 variable "region" {
@@ -25,7 +25,7 @@ variable "region" {
 variable "instance_type" {
   description = "Machine type"
   type        = string
-  default     = "t2.micro"
+  default     = "t2.medium"
 }
 
 variable "vpc_security_group_ids" {
@@ -37,7 +37,7 @@ variable "vpc_security_group_ids" {
 variable "instance_keypair_name" {
   description = "Name of keypair"
   type        = string
-  default     = "DATA472-jcl173-2"
+  default     = "DATA472-jre141-2"
 }
 
 
@@ -54,7 +54,25 @@ variable "subnetid" {
 }
 
 variable "volumesize" {
-  description = "Space on the volumn"
+  description = "Space on the volume"
   type = number
   default = 20
+}
+
+variable "git_repo" {
+  description = "The repository for git"
+  default     = "https://github.com/Jake1441/DATA472_Hadoop_Hooligans"
+  type        = string
+}
+
+variable "git_repo_dir" {
+  description = "The repository for git"
+  default     = "DATA472_Hadoop_Hooligans"
+  type        = string
+}
+
+variable "git_branch" {
+  description = "The target branch to clone"
+  default     = "feature-automation"
+  type        = string
 }
