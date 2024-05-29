@@ -5,5 +5,6 @@ sudo apt install -y python3.12-venv
 alias activate=". ~/.venv/bin/activate"
 python3 -m venv ~/.venv && activate
 pip install docker
-python3 exportdata.py
-deactivate
+ls -lla
+# python3 exportdata.py
+# deactivate
