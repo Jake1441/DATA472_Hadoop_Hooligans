@@ -14,4 +14,4 @@ sudo usermod -aG docker $USER
 sudo apt install -y python3.12-venv
 python3 -m venv ~/.venv && source ~/.venv/bin/activate
 python3 exportdata.py
-activate
+deactivate
