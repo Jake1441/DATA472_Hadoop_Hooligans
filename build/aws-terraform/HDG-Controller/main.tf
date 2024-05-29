@@ -47,26 +47,34 @@ resource "null_resource" "build_git_repo" {
       "cd ${var.git_repo_dir} && git pull origin ${var.git_branch}",
       "ls -lla",
       "cd /home/ubuntu/${var.git_repo_dir}",
-      "sh setup-controller.sh"
+      "sh setup-controller.sh",
     ]
   }
 }
 
-resource "null_resource" "docker_credentials" {
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
-    private_key = file("//mnt//c//Users//jacob//Downloads//DATA472-jre141-2.pem")
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "echo 'AWS EC2 CONTROLLER ${var.instance_type}'",
-      "echo 'Configuring docker permissions ${timestamp()}'",
-      "sudo usermod -aG docker $USER"
-    ]
-  }
-}
+# if docker_credentials starts too fast it might crash the session.
+# resource "time_sleep" "wait_10_seconds" {
+#   depends_on = [null_resource.build_git_repo]
+
+#   create_duration = "30s"
+# }
+
+# resource "null_resource" "docker_credentials" {
+#   connection {
+#     type        = "ssh"
+#     user        = "ubuntu"
+#     host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
+#     private_key = file("//mnt//c//Users//jacob//Downloads//DATA472-jre141-2.pem")
+#   }
+  
+#   provisioner "remote-exec" {
+#     inline = [
+#       "echo 'AWS EC2 CONTROLLER ${var.instance_type}'",
+#       "echo 'Configuring docker permissions ${timestamp()}'",
+
+#     ]
+#   }
+# }
 
 resource "null_resource" "resume_configuration" {
   connection {
