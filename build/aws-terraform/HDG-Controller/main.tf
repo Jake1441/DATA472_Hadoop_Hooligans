@@ -41,14 +41,12 @@ resource "null_resource" "build_git_repo" {
       "echo 'Hello from Terraform ${timestamp()}'",
       "sudo apt update",
       "sudo apt install -y git",
+      "sudo rm -rf  ${var.git_repo_dir}",
       "git clone -b ${var.git_branch} ${var.git_repo} ${var.git_repo_dir}",
       "cd ${var.git_repo_dir} && git pull origin ${var.git_branch}",
-	  "git pull origin ${var.git_branch}",
       "ls -lla",
       "cd /home/ubuntu/${var.git_repo_dir}",
-      "sh main.sh",
-      "cd /home/ubuntu/${var.git_repo_dir}/build/docker_selenium",
-      "sudo sh run_docker_scraper.sh"
+      "sh main.sh"
     ]
   }
 }
