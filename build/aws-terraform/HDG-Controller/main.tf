@@ -2,7 +2,7 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_instance" "DATA472-jre141-ubuntu_instance" {
+resource "aws_instance" "DATA472-jre141-hdg-controller" {
   ami                         = var.ami
   instance_type               = var.instance_type
   subnet_id                   = var.subnetid
@@ -33,7 +33,7 @@ resource "null_resource" "build_git_repo" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    host        = aws_instance.DATA472-jre141-hadoop-instance.public_ip
+    host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
     private_key = file("//mnt//c//Users//jacob//Downloads//DATA472-jre141-2.pem")
   }
   provisioner "remote-exec" {
@@ -44,8 +44,8 @@ resource "null_resource" "build_git_repo" {
       "git clone -b ${var.git_branch} ${var.git_repo} ${var.git_repo_dir}",
       "cd ${var.git_repo_dir} && git pull origin ${var.git_branch}",
       "echo ls -lla",
-	  "cd /home/ubuntu/${var.git_repo_dir}",
-	  "sh main.sh",
+      "cd /home/ubuntu/${var.git_repo_dir}",
+      "sh main.sh",
       "cd /home/ubuntu/${var.git_repo_dir}/build/docker_selenium",
       "sudo sh run_docker_scraper.sh"
     ]
@@ -53,5 +53,5 @@ resource "null_resource" "build_git_repo" {
 }
 
 output "ec2_global_ips" {
-  value = aws_instance.DATA472-jre141-hadoop-instance.*.public_ip
+  value = aws_instance.DATA472-jre141-hdg-controller.*.public_ip
 }

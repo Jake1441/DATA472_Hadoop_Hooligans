@@ -43,20 +43,20 @@ variable "instance_keypair_name" {
 
 variable "ami" {
   description = "Amazon machine image"
-  type = string
-  default = "ami-080660c9757080771"
+  type        = string
+  default     = "ami-080660c9757080771"
 }
 
 variable "subnetid" {
   description = "The subnet id for machine"
-  type = string
-  default = "subnet-0326da008b859395c"
+  type        = string
+  default     = "subnet-0326da008b859395c"
 }
 
 variable "volumesize" {
   description = "Space on the volume"
-  type = number
-  default = 20
+  type        = number
+  default     = 20
 }
 
 variable "git_repo" {
