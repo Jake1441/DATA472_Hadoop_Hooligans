@@ -46,7 +46,8 @@ resource "null_resource" "build_git_repo" {
       "cd ${var.git_repo_dir} && git pull origin ${var.git_branch}",
       "ls -lla",
       "cd /home/ubuntu/${var.git_repo_dir}",
-      "sh main.sh"
+      "sh setup-controller.sh",
+	  "echo 'Finished run controller-main.sh under ${var.git_repo_dir}'"
     ]
   }
 }
