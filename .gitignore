@@ -15,4 +15,4 @@ __pycache__
 
 # Terraform variables
 *.tfvars
-automated_download_script/*
+/automated_download_script/
