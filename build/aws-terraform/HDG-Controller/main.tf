@@ -46,12 +46,15 @@ resource "null_resource" "build_git_repo" {
       "cd ${var.git_repo_dir} && git pull origin ${var.git_branch}",
       "ls -lla",
       "cd /home/ubuntu/${var.git_repo_dir}",
-      "sh setup-controller.sh",
-	  "echo 'Finished run controller-main.sh under ${var.git_repo_dir}'"
+      "sh setup-controller.sh"
     ]
   }
 }
 
 output "ec2_global_ips" {
   value = aws_instance.DATA472-jre141-hdg-controller.*.public_ip
+}
+
+output "ec2_instance_finished" {
+  value = "Done \n please set up .env under ${var.git_repo_dir} and then run controller-main.sh"
 }
