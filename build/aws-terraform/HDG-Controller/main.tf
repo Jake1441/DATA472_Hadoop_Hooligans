@@ -46,7 +46,9 @@ resource "null_resource" "build_git_repo" {
       "cd ${var.git_repo_dir} && git pull origin ${var.git_branch}",
       "ls -lla",
       "cd /home/ubuntu/${var.git_repo_dir}",
-      "sh setup-controller.sh"
+      "sh setup-controller.sh",
+      "sudo usermod -aG docker $USER && newgrp docker",
+      "sh controller-main.sh"
     ]
   }
 }
@@ -56,5 +58,5 @@ output "ec2_global_ips" {
 }
 
 output "ec2_instance_finished" {
-  value = "Done \n please set up .env under ${var.git_repo_dir} and then run controller-main.sh"
+  value = "Done \n please set up .env under ${var.git_repo_dir} and then run the database script"
 }
