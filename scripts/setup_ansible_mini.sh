@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # this command is only for Docker
-apt update && apt install -y sudo
+#apt update && apt install -y sudo
 # set up timezone to not prompt
 ln -fs /usr/share/zoneinfo/Pacific/Auckland /etc/localtime
 export TZ=Pacific/Auckland
