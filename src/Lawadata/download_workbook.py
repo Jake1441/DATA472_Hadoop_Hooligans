@@ -18,8 +18,4 @@ def download_excel_workbook(url, name="Groundwater") -> dict:
     with open(save_path, 'wb') as f: #Its safer to write the dataset to disk first, then read it into pandas
                 f.write(response.content)
     print("File written")
-    print(save_path)
-    dfs = pd.read_excel(save_path, sheet_name=None)
-
-    return dfs
-
+    # Changed so that the file is just written to the folder rather than returned
