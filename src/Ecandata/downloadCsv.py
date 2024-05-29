@@ -30,6 +30,6 @@ def download_excel_workbook(IDs):
         
 
 
-# ids = ["BW24/0039", "K38/0088"]
+# ids = ["BW24/0039", "K38/0088", "M35_6639", "L35_0558"]
 # download_excel_workbook(ids)
     
