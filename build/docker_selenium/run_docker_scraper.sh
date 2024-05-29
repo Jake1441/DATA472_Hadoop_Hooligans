@@ -16,4 +16,4 @@
 repo=desertroam/hadoophulligans
 tag=python
 
-docker run -it --name python-scraper $repo:$tag
+sudo docker run -it --name python-scraper $repo:$tag

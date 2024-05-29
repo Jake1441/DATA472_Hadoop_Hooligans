@@ -9,4 +9,5 @@ sudo mv /usr/lib/python3.12/EXTERNALLY-MANAGED.old /usr/lib/python3.12/EXTERNALL
 
 cd ./build/docker_selenium/
 sh run_docker_scraper.sh
+sudo usermod -aG docker $USER
 python3 exportdata.py
