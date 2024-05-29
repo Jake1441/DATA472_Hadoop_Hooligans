@@ -15,3 +15,8 @@
   become: true
   roles:
     - logstash
+# placed here incase docker has not started yet
+- name: add uesr to docker role
+  hosts: localhost
+  roles:
+    - docker-group
