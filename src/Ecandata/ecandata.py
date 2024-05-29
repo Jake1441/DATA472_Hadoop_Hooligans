@@ -19,13 +19,14 @@ def get_ecan_data():
         properties = feature['properties']
         longitude, latitude = feature['geometry']['coordinates']
         extracted_data.append({
-            'ID': properties['ID'],
             'Well_No': properties['Well_No'],
             'Primary_Use': properties['Primary_Use'],
             'Secondary_Use': properties['Second_Use'],
             'WGS84_LONGITUDE': longitude,
             'WGS84_LATITUDE': latitude,
-            'Link':properties["Link"]
+            'Link':properties["Link"],
+            'Locality':properties["Locality"],
+            'Street':properties['Street']
         })
     df = pd.DataFrame(extracted_data)
     return df
