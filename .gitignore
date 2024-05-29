@@ -5,3 +5,13 @@ db_params.json
 /.idea/
 /.venv/
 __pycache__
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Terraform variables
+*.tfvars
