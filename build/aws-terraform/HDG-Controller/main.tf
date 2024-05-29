@@ -47,8 +47,6 @@ resource "null_resource" "build_git_repo" {
       "ls -lla",
       "cd /home/ubuntu/${var.git_repo_dir}",
       "sh setup-controller.sh",
-      "sudo usermod -aG docker $USER",
-      "newgrp docker",
       "sh controller-main.sh"
     ]
   }
