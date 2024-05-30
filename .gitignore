@@ -17,3 +17,5 @@ __pycache__
 *.tfvars
 /automated_download_script/
 .env
+
+logs/*

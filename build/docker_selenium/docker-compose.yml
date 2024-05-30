@@ -3,7 +3,6 @@ services:
     image: desertroam/hadoophulligans:latest
     volumes:
       - scraper-db:/app/src
-      - $HOME/.env:/.env
     container_name: python-scraper
 
   python-insertdb:
