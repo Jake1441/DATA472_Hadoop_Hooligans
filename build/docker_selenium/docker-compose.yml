@@ -1,0 +1,9 @@
+services:
+  python:
+    image: desertroam/hadoophulligans:latest
+    volumes:
+      - scraper-db:/app/src
+      - $HOME/.env:/.env
+
+volumes:
+  postgres-db-volume:
