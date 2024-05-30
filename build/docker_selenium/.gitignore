@@ -1,3 +1,4 @@
 *.xlsx
 docker_output/
 /docker_output/
+/logs/
