@@ -1,12 +1,8 @@
 from dotenv import dotenv_values
 import psycopg2
 
-import os
-
 def connect_to_database():
     config = dotenv_values()
-    print(os.getcwd())
-    print(config['DB_NAME'])
     try:
         # Establish the connection
         conn = psycopg2.connect(

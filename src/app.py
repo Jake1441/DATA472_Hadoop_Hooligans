@@ -18,7 +18,7 @@ if __name__ == "__main__":
     all_ecan_df.apply(
         lambda row: insert_into_well.insert_into_well_metadata(connection, row), axis=1
     )
-    directory = "app/src/well_data/"
+    directory = "/app/src/well_data/"
     well_code_list = os.listdir(directory)
     code_list = [x.split(".")[0] for x in well_code_list]
     for code in code_list:
