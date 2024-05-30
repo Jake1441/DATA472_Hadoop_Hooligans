@@ -1,0 +1,78 @@
+{
+  "MaxCount": 1,
+  "MinCount": 1,
+  "ImageId": "ami-080660c9757080771",
+  "InstanceType": "t2.micro",
+  "KeyName": "DATA472-jre141-2",
+  "EbsOptimized": false,
+  "BlockDeviceMappings": [
+    {
+      "DeviceName": "/dev/sda1",
+      "Ebs": {
+        "Encrypted": false,
+        "DeleteOnTermination": true,
+        "Iops": 3000,
+        "SnapshotId": "snap-0a6086de6d6416514",
+        "VolumeSize": 20,
+        "VolumeType": "gp3",
+        "Throughput": 125
+      }
+    }
+  ],
+  "NetworkInterfaces": [
+    {
+      "SubnetId": "subnet-0326da008b859395c",
+      "AssociatePublicIpAddress": true,
+      "DeviceIndex": 0,
+      "Groups": [
+        "sg-09b486a14a006c62b"
+      ]
+    }
+  ],
+  "TagSpecifications": [
+    {
+      "ResourceType": "instance",
+      "Tags": [
+        {
+          "Key": "Name",
+          "Value": "DATA472-jre141-terraform-testserver"
+        },
+        {
+          "Key": "Course",
+          "Value": "DATA472-jre141-ec2lambda"
+        },
+        {
+          "Key": "UserName",
+          "Value": "jre141"
+        }
+      ]
+    },
+    {
+      "ResourceType": "volume",
+      "Tags": [
+        {
+          "Key": "Name",
+          "Value": "DATA472-jre141-terraform-testserver"
+        },
+        {
+          "Key": "Course",
+          "Value": "DATA472-jre141-ec2lambda"
+        },
+        {
+          "Key": "UserName",
+          "Value": "jre141"
+        }
+      ]
+    }
+  ],
+  "MetadataOptions": {
+    "HttpEndpoint": "enabled",
+    "HttpPutResponseHopLimit": 2,
+    "HttpTokens": "required"
+  },
+  "PrivateDnsNameOptions": {
+    "HostnameType": "ip-name",
+    "EnableResourceNameDnsARecord": false,
+    "EnableResourceNameDnsAAAARecord": false
+  }
+}

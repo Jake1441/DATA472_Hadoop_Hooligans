@@ -2,7 +2,7 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_instance" "DATA472-jre141-hdg-controller" {
+resource "aws_instance" "DATA472-jre141-hdg-website" {
   ami                         = var.ami
   instance_type               = var.instance_type
   subnet_id                   = var.subnetid
@@ -33,7 +33,7 @@ resource "null_resource" "build_git_repo" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
+    host        = aws_instance.DATA472-jre141-hdg-website.public_ip
     private_key = file("//mnt//c//Users//jacob//Downloads//DATA472-jre141-2.pem")
   }
   provisioner "remote-exec" {
@@ -64,7 +64,7 @@ resource "null_resource" "resume_configuration" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
+    host        = aws_instance.DATA472-jre141-hdg-website.public_ip
     private_key = file("//mnt//c//Users//jacob//Downloads//DATA472-jre141-2.pem")
   }
 
@@ -89,7 +89,7 @@ resource "null_resource" "copy_file" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
+    host        = aws_instance.DATA472-jre141-hdg-website.public_ip
     private_key = file("/mnt/c/Users/jacob/Downloads/DATA472-jre141-2.pem")
   }
 
@@ -101,7 +101,7 @@ resource "null_resource" "copy_file" {
 }
 
 output "ec2_global_ips" {
-  value = aws_instance.DATA472-jre141-hdg-controller.*.public_ip
+  value = aws_instance.DATA472-jre141-hdg-website.*.public_ip
 }
 
 output "ec2_instance_finished" {
