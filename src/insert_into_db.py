@@ -66,7 +66,7 @@ def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
             print(f"WARN: {sample_id} Data already exists, skipping insertion.")
             cur.close()
     except Exception as e:
-        print(f"ERROR: Inserting Data for {sample_id}: {e}")
+        print(f"ERROR: Inserting Data for {sample}: {e}")
 
 
 def insert_into_sample(conn, sample_id, collection_date, sub_df):
