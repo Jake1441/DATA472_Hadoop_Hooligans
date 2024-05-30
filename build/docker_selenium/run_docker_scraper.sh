@@ -14,6 +14,6 @@
 
 #Test purpose go back to previous directory.
 repo=desertroam/hadoophulligans
-tag=python
+tag=latest
 
 sudo docker run -it --name python-scraper $repo:$tag
