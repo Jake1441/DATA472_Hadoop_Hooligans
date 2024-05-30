@@ -52,6 +52,7 @@ resource "null_resource" "build_git_repo" {
     ]
   }
 }
+
 resource "time_sleep" "wait_10_seconds" {
   depends_on = [null_resource.build_git_repo]
 
@@ -59,12 +60,14 @@ resource "time_sleep" "wait_10_seconds" {
 }
 
 resource "null_resource" "resume_configuration" {
+  depends_on = [time_sleep.wait_10_seconds]
   connection {
     type        = "ssh"
     user        = "ubuntu"
     host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
     private_key = file("//mnt//c//Users//jacob//Downloads//DATA472-jre141-2.pem")
   }
+
   provisioner "remote-exec" {
     inline = [
       "echo 'AWS EC2 CONTROLLER ${var.instance_type}'",
