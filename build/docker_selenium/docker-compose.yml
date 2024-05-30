@@ -3,8 +3,18 @@ services:
     image: desertroam/hadoophulligans:latest
     volumes:
       - scraper-db:/app/src
-      - $HOME/.env:/app/src/.env
+      - $HOME/.env:/.env
     container_name: python-scraper
+
+  python-insertdb:
+    container_name: python-insertdb
+    image: desertroam/hadoophulligans:python-insertdb
+    volumes:
+      - $HOME/.env:/app/src/.env
+      - scraper-db:/app/src
+    depends_on:
+      python_scraper:
+        condition: service_completed_successfully
 
 volumes:
   scraper-db:
