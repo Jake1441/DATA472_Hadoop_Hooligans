@@ -1,5 +1,5 @@
 services:
-  python:
+  python-scraper:
     image: desertroam/hadoophulligans:python-1-0
     volumes:
       - scraper-db:/app/src
