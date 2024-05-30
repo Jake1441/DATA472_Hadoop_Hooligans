@@ -61,12 +61,12 @@ def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
             ))
             insert_into_sample(conn=conn, sample_id=sample, collection_date=collection_date, sub_df= sub_df)
             conn.commit()
-            print(f"Data inserted")
+            print(f"SUCCESS: {sample_id} Data inserted")
         else:
-            print(f"Data already exists, skipping insertion.")
+            print(f"WARN: {sample_id} Data already exists, skipping insertion.")
             cur.close()
     except Exception as e:
-        print(f"Error Inserting Data: {e}")
+        print(f"ERROR: Inserting Data for {sample_id}: {e}")
 
 
 def insert_into_sample(conn, sample_id, collection_date, sub_df):

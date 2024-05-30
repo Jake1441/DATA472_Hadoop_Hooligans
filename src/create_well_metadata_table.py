@@ -20,5 +20,5 @@ def create_well_metadata_table(connection):
         cur.close()
         print("Table Well Metadata created successfully")
     except Exception as e:
-            print(f"Error creating table {e}")
+            print(f"ERROR: unable to create table {e}")
 

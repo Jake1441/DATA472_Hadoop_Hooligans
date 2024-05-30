@@ -21,11 +21,11 @@ def connect_to_database():
 
         # Fetch the result
         db_version = cur.fetchone()
-        print(f"Connected to PostgreSQL database, version: {db_version}")
+        print(f"INFO: Connected to PostgreSQL database, version: {db_version}")
         return conn
 
     except Exception as e:
-        print(f"Error connecting to PostgreSQL database: {e}")
+        print(f"CRITICAL: unable to connect to PostgreSQL database: {e}")
 
 
 def close_connection(conn):
