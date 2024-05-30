@@ -6,9 +6,11 @@ import time
 def download_excel_workbook(IDs):
     """Takes the url of the direct csv download link (and the ID) and downloads the csv into a folder called well_data"""
     baseurl = """https://www.ecan.govt.nz/data/water-quality-data/exportallsample/"""
-    directory = os.getcwd()
-
+    directory = "/app/src"
+    print(directory)
+    os.chdir(directory) # This is important!
     if not os.path.basename(directory) == "well_data":
+        print("well data does not exist")
         os.makedirs("well_data", exist_ok=True)
         os.chdir("well_data")
 
@@ -21,6 +23,7 @@ def download_excel_workbook(IDs):
             print(url)
             response = requests.get(url)
             file_path = os.path.join(directory, f"{n_ID}.csv")
+            print(file_path)
             with open(file_path, "wb") as f:
                 f.write(response.content)
             print(f"File was written at location {file_path}")

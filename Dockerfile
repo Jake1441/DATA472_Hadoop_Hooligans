@@ -1,4 +1,5 @@
 #FROM selenium/standalone-chrome
+
 FROM python:3.11-slim
 # Set the working directory
 WORKDIR /app
@@ -10,8 +11,8 @@ USER root
 RUN apt-get update && apt-get install -y python3 python3-distutils wget
 
 # Install pip
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python3 get-pip.py
+# RUN wget https://bootstrap.pypa.io/get-pip.py
+# RUN python3 get-pip.py
 
 # Install Python packages including selenium
 COPY requirements.txt /app
@@ -21,8 +22,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ /app/src/
 
 # Verify installations (optional, you can remove these lines if not needed)
-RUN google-chrome --version
-RUN chromedriver --version
+#RUN google-chrome --version
+#RUN chromedriver --version
 
 # Set the display number for xvfb (uncomment if needed)
 # ENV DISPLAY=:99
