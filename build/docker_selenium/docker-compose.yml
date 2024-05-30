@@ -11,6 +11,7 @@ services:
     image: desertroam/hadoophulligans:python-insertdb
     volumes:
       - $HOME/.env:/app/src/.env
+      # some issue with volume not having python files from scraper try another volume
       - scraper-db:/app/src
     depends_on:
       python_scraper:
