@@ -19,3 +19,4 @@ services:
 
 volumes:
   scraper-db:
+  data-db:
