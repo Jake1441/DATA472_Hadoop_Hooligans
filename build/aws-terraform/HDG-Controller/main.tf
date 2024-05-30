@@ -52,6 +52,35 @@ resource "null_resource" "build_git_repo" {
     ]
   }
 }
+resource "time_sleep" "wait_10_seconds" {
+  depends_on = [null_resource.build_git_repo]
+
+  create_duration = "10s"
+}
+
+resource "null_resource" "resume_configuration" {
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
+    private_key = file("//mnt//c//Users//jacob//Downloads//DATA472-jre141-2.pem")
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'AWS EC2 CONTROLLER ${var.instance_type}'",
+      "echo 'Resuming Configuration ${timestamp()}'",
+      "cd /home/ubuntu/${var.git_repo_dir}/build/docker_selenium/",
+      "alias activate='. ~/.venv/bin/activate'",
+      "python3 -m venv ~/.venv && activate",
+      "pip install docker",
+      "python3 exportdata.py"
+    ]
+  }
+}
+
+
+# python3 exportdata.py
+# deactivate
 
 # #if docker_credentials starts too fast it might crash the session.
 # resource "null_resource" "sleep_20_seconds" {
