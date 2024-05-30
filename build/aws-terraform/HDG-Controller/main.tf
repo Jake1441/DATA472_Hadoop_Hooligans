@@ -108,6 +108,25 @@ resource "null_resource" "resume_configuration" {
 #   }
 # }
 
+resource "null_resource" "copy_file" {
+  # Ensure this resource depends on any necessary resources before copying the file
+  depends_on = [null_resource.resume_configuration]
+
+  # Define the connection details for SSH
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    host        = aws_instance.DATA472-jre141-hdg-controller.public_ip
+    private_key = file("/mnt/c/Users/jacob/Downloads/DATA472-jre141-2.pem")
+  }
+
+  # Use the file provisioner to copy a file from local machine to remote server
+  provisioner "file" {
+    source      = "../.env"  # Path to the local file
+    destination = "~/.env"  # Destination path on the remote server
+  }
+}
+
 output "ec2_global_ips" {
   value = aws_instance.DATA472-jre141-hdg-controller.*.public_ip
 }
