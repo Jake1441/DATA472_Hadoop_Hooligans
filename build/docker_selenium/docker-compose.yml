@@ -1,0 +1,10 @@
+services:
+  python_scraper:
+    image: desertroam/hadoophulligans:python-1-0
+    volumes:
+      - scraper-db:/app/src
+      - $HOME/.env:/.env
+    container_name: python-scraper
+
+volumes:
+  scraper-db:
