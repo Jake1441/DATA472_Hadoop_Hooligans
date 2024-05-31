@@ -1,8 +1,8 @@
 """Main script for Sourcing the Ecan Data, Run as a module, will not work if run directly"""
 
-# from .ecanwrangle import clean_ecan
-from .ecandata import get_ecan_data
-from .downloadCsv import download_excel_workbook
+from ecanwrangle import clean_ecan
+from ecandata import get_ecan_data
+from downloadCsv import download_excel_workbook
 import time
 
 
@@ -13,15 +13,17 @@ def create_water_reports() -> None:
     all_ecan_data = get_ecan_data()
     all_ecan_data.drop_duplicates(subset='Well_No', keep='first', inplace=True)
     # Prints all the data from the API
-    all_ecan_data.to_csv("/app/src/ecan_data.csv")
+    wrangled_ecan_data = clean_ecan(all_ecan_data)
+    wrangled_ecan_data.to_csv('/app/src/ecan_data.csv')
+    # all_ecan_data.to_csv("/app/src/ecan_data.csv")
     # Creates the table if it does not exist.
     ##### UPLOAD ECAN DATA TO DB ########
-    print("Uploading to DB")
-    well_list = all_ecan_data["Well_No"].tolist()
+    # print("Uploading to DB")
+    # well_list = all_ecan_data["Well_No"].tolist()
     #####################################
-    # wrangled_ecan_data = clean_ecan(all_ecan_data)
-    # codes = wrangled_ecan_data["Well_No"].tolist()
-    download_excel_workbook(well_list)
+    codes = wrangled_ecan_data["Well_No"].tolist()
+    download_excel_workbook(codes)
+    print("Finished Downloading")
 
 
 #ids = ["BW24/0039", "K38/0088", "M35_6639", "L35_0558"]
