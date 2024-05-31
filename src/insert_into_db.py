@@ -63,7 +63,7 @@ def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
                 str(sample),
                 collection_date
             ))
-            insert_into_sample(conn=conn, sample_id=sample, collection_date=collection_date, sub_df=sub_df)
+            insert_into_sample(conn=conn, sample_id=sample, collection_date=collection_date, sub_df=sub_df, well_code=well_code)
             conn.commit()
             print(f"SUCCESS: {sample} Data inserted")
         else:
@@ -73,7 +73,7 @@ def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
         print(f"ERROR: Inserting Data for {sample}: {e}")
 
 
-def insert_into_sample(conn, sample_id, collection_date, sub_df):
+def insert_into_sample(conn, sample_id, collection_date, sub_df, well_code):
     try:
         cur = conn.cursor()
         # Data does not exist, perform the insert
@@ -95,7 +95,8 @@ def insert_into_sample(conn, sample_id, collection_date, sub_df):
             silica,
             nitrate_nitrogen,
             e_coli,
-            total_coliforms
+            total_coliforms,
+            well_code
         )
         VALUES
         (
@@ -114,7 +115,8 @@ def insert_into_sample(conn, sample_id, collection_date, sub_df):
             %s::jsonb,
             %s::jsonb,
             %s::jsonb,
-            %s::jsonb
+            %s::jsonb,
+            %s
         );
         '''
         chloride = get_measurement_value(sub_df, 'Chloride')
@@ -148,10 +150,11 @@ def insert_into_sample(conn, sample_id, collection_date, sub_df):
             json.dumps(silica),
             json.dumps(nitrate_nitrogen),
             json.dumps(e_coli),
-            json.dumps(total_coliforms)
+            json.dumps(total_coliforms),
+            str(well_code)
         ))
         conn.commit()
-        print(f"Data inserted")
+        print(f"Data for {well_code} inserted")
         cur.close()
     except Exception as e:
         print(f"Error Inserting Data: {e}")
