@@ -1,8 +1,8 @@
 """Main script for Sourcing the Ecan Data, Run as a module, will not work if run directly"""
 
-from ecanwrangle import clean_ecan
-from ecandata import get_ecan_data
-from downloadCsv import download_excel_workbook
+from .ecanwrangle import clean_ecan
+from .ecandata import get_ecan_data
+from .downloadCsv import download_excel_workbook
 import time
 
 

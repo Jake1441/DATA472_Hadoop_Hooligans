@@ -34,6 +34,10 @@ def insert_into_db(well_code, sample, collection_date ,sub_df):
 
 
 def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
+    if not None well_code:
+        print(well_code)
+    else:
+        print("WARNING: no well code found")
     try:
         cur = conn.cursor()
         select_query = '''
