@@ -96,7 +96,7 @@ def insert_into_sample(conn, sample_id, collection_date, sub_df, well_code):
             nitrate_nitrogen,
             e_coli,
             total_coliforms,
-            well_code
+            well_id
         )
         VALUES
         (
