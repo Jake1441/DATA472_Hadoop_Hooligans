@@ -10,31 +10,31 @@ sys.path.append(script_dir)
 import pandas as pd
 import connect_to_db
 
+
 def get_measurement_value(df, measurement):
     row = df[df['Measurement'] == measurement]
     if not row.empty:
         value = row.iloc[0]['Value']
         units = row.iloc[0]['Units']
-        return {"determinand_name" : str(measurement),
-                "determinand_actual_value" : str(value),
-                "determinand_units" : str(units)
+        return {"determinand_name": str(measurement),
+                "determinand_actual_value": str(value),
+                "determinand_units": str(units)
                 }
     else:
-        return {"determinand_name" : None,
-                "determinand_actual_value" : None,
-                "determinand_units" : None
+        return {"determinand_name": None,
+                "determinand_actual_value": None,
+                "determinand_units": None
                 }
 
 
-
-def insert_into_db(well_code, sample, collection_date ,sub_df):
+def insert_into_db(well_code, sample, collection_date, sub_df):
     connection = connect_to_db.connect_to_database()
-    insert_into_recordings(conn=connection, well_code=well_code, sample= sample, collection_date=collection_date, sub_df=sub_df)
-
+    insert_into_recordings(conn=connection, well_code=well_code, sample=sample, collection_date=collection_date,
+                           sub_df=sub_df)
 
 
 def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
-    if not None well_code:
+    if well_code is not None:
         print(well_code)
     else:
         print("WARNING: no well code found")
@@ -63,7 +63,7 @@ def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
                 str(sample),
                 collection_date
             ))
-            insert_into_sample(conn=conn, sample_id=sample, collection_date=collection_date, sub_df= sub_df)
+            insert_into_sample(conn=conn, sample_id=sample, collection_date=collection_date, sub_df=sub_df)
             conn.commit()
             print(f"SUCCESS: {sample} Data inserted")
         else:
@@ -76,7 +76,7 @@ def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
 def insert_into_sample(conn, sample_id, collection_date, sub_df):
     try:
         cur = conn.cursor()
-            # Data does not exist, perform the insert
+        # Data does not exist, perform the insert
         insert_query = '''
         INSERT INTO sample_v2
         (

@@ -22,4 +22,5 @@ if __name__ == "__main__":
     well_code_list = os.listdir(directory)
     code_list = [x.split(".")[0] for x in well_code_list]
     for code in code_list:
+        print(code)
         get_into_dataframe.get_main_data(well_code=code)
