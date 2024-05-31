@@ -28,6 +28,6 @@ COPY src/ /app/src/
 # Set the display number for xvfb (uncomment if needed)
 # ENV DISPLAY=:99
 # Run the main Python script
-RUN ls
+WORKDIR /app/src
 
-CMD ["python3", "/app/src/source_data.py"]
+CMD ["python3", "source_data.py"]
