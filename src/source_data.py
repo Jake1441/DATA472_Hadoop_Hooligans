@@ -6,7 +6,7 @@ def source_data():
     Ecan Data is downloaded in the folder well_data"""
     print("Starting data sourcing")
     #lawa_main.get_lawa_groundwater()
-    #ecanmain.create_water_reports()
+    ecanmain.create_water_reports()
     print("Finished data sourcing")
     
 

@@ -22,11 +22,12 @@ def download_excel_workbook(IDs):
             url = baseurl + n_ID
             print(url)
             response = requests.get(url)
-            file_path = os.path.join(directory, f"{n_ID}.csv")
-            print(file_path)
-            with open(file_path, "wb") as f:
-                f.write(response.content)
-            print(f"File was written at location {file_path}")
+            if response.status_code == 200:
+                file_path = os.path.join(directory, f"{n_ID}.csv")
+                print(file_path)
+                with open(file_path, "wb") as f:
+                    f.write(response.content)
+                    print(f"File was written at location {file_path}")
             time.sleep(1.7)
         except Exception as e:
             print(
