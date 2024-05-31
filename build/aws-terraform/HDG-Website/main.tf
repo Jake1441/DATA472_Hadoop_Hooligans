@@ -72,7 +72,7 @@ resource "null_resource" "resume_configuration" {
     inline = [
       "echo 'AWS EC2 CONTROLLER ${var.instance_type}'",
       "echo 'Resuming Configuration ${timestamp()}'",
-      "cd /home/ubuntu/${var.git_repo_dir}/build/docker_selenium/",
+      "cd /home/ubuntu/${var.git_repo_dir}/build/docker-scraper/",
       "alias activate='. ~/.venv/bin/activate'",
       "python3 -m venv ~/.venv && activate",
       "pip install docker",
