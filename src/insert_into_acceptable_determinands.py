@@ -1,6 +1,27 @@
+import logging
+
 import pandas as pd
 import connect_to_db as connect
 import json
+
+import os
+import sys
+
+# Get the full path of the current file
+file_path = sys.argv[0]
+
+# Get the base name of the file (i.e., file name with extension)
+base_name = os.path.basename(file_path)
+
+# Remove the file extension
+file_name = os.path.splitext(base_name)[0]
+
+from log_settings import *
+# call outside so function does not call gain this sets the date for the actual file.
+f_date = get_frozen_datetime()
+
+# set up the logging info and date, you only need to do this once!
+send_to_log(f_date, file_name)
 
 def get_measurement_value(df, measurement):
     row = df[df['Measurement'] == measurement]
@@ -102,11 +123,14 @@ def insert_into_acceptable_determinands(connection, df):
             ),
         )
         connection.commit()
-        print("Data Inserted")
         cur.close()
+        message = "Measurement data inserted into acceptable_determinands_v2"
+        logging.info(message)
+        print()
     except Exception as e:
-        print(f"Exception occured {e}")
-
+        message = f"Exception occured {e}"
+        logging.error(message)
+        print(message)
 
 
 if __name__ == "__main__":

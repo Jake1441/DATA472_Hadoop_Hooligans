@@ -1,3 +1,4 @@
+import logging
 import sys
 import os
 from datetime import datetime
@@ -9,6 +10,23 @@ sys.path.append(script_dir)
 
 import pandas as pd
 import connect_to_db
+
+
+# Get the full path of the current file
+file_path = sys.argv[0]
+
+# Get the base name of the file (i.e., file name with extension)
+base_name = os.path.basename(file_path)
+
+# Remove the file extension
+file_name = os.path.splitext(base_name)[0]
+
+from log_parser.log_settings import *
+# call outside so function does not call gain this sets the date for the actual file.
+f_date = get_frozen_datetime()
+
+# set up the logging info and date, you only need to do this once!
+send_to_log(f_date, file_name)
 
 
 def get_measurement_value(df, measurement):
@@ -35,9 +53,12 @@ def insert_into_db(well_code, sample, collection_date, sub_df):
 
 def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
     if well_code is not None:
+        logging.info(well_code)
         print(well_code)
     else:
-        print("WARNING: no well code found")
+        message = "no well code found"
+        logging.warning(message)
+        print(message)
     try:
         cur = conn.cursor()
         select_query = '''
@@ -65,12 +86,18 @@ def insert_into_recordings(conn, well_code, sample, collection_date, sub_df):
             ))
             insert_into_sample(conn=conn, sample_id=sample, collection_date=collection_date, sub_df=sub_df, well_code=well_code)
             conn.commit()
-            print(f"SUCCESS: {sample} Data inserted")
+            message = f"{sample} Data inserted"
+            logging.info(message)
+            print(message)
         else:
-            print(f"WARN: {sample} Data already exists, skipping insertion.")
+            message = f"{sample} Data already exists, skipping insertion."
+            logging.warning(message)
+            print(message)
             cur.close()
     except Exception as e:
-        print(f"ERROR: Inserting Data for {sample}: {e}")
+        message = "Inserting Data for {sample}: {e}"
+        logging.error(message)
+        print(message)
 
 
 def insert_into_sample(conn, sample_id, collection_date, sub_df, well_code):
@@ -154,7 +181,11 @@ def insert_into_sample(conn, sample_id, collection_date, sub_df, well_code):
             str(well_code)
         ))
         conn.commit()
-        print(f"Data for {well_code} inserted")
+        message = f"Data for {well_code} inserted"
+        logging.info(message)
+        print(message)
         cur.close()
     except Exception as e:
-        print(f"Error Inserting Data: {e}")
+        message = f"Error Inserting Data: {e}"
+        logging.error(message)
+        print(message)
