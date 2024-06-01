@@ -1,17 +1,5 @@
 #!/bin/bash
 
-# runs docker selenium scraper
-
-#Test purpose go back to previous directory.
-# repo=desertroam/hadoophulligans
-# tag=latest
-# pythonscraper should change to something that briefly explains what the script does
-# --Copy
-log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
-scriptfile='start_scraper.sh' # should be script name 
-
-echo "Please check $log_file to view any activities"
-
 mc_details=("$(uname)" "$(lsb_release -c | awk '{print $2}')")
 cat << EOF >> "$log_file"
 $(printf "%0.s-" {1..32})
@@ -25,6 +13,18 @@ you appear to be running on ${mc_details[0]}\\${mc_details[1]}
 $(printf "%0.s-" {1..32})
 
 EOF
+
+# runs docker selenium scraper
+
+#Test purpose go back to previous directory.
+# repo=desertroam/hadoophulligans
+# tag=latest
+# pythonscraper should change to something that briefly explains what the script does
+# --Copy
+log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
+scriptfile='start_scraper.sh' # should be script name 
+
+echo "Please check $log_file to view any activities"
 
 
 echo "running $scriptfile" >> $log_file
