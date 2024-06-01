@@ -3,7 +3,7 @@
 # this command is only for Docker
 #apt update && apt install -y sudo
 # set up timezone to not prompt
-ln -fs /usr/share/zoneinfo/Pacific/Auckland /etc/localtime
+sudo ln -fs /usr/share/zoneinfo/Pacific/Auckland /etc/localtime
 export TZ=Pacific/Auckland
 
 # rest installs ansible to be used.

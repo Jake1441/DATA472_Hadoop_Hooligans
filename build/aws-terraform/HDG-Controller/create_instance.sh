@@ -1,4 +1,7 @@
 #!/bin/bash
+# ensure terraform has been initialised
+bash init_terraform.sh
+log_file="../../logs/$(date +'%Y-%d-%m')-hdg-destroy.log"
 
 mc_details=("$(uname)" "$(lsb_release -c | awk '{print $2}')")
 cat << EOF >> "$log_file"
@@ -14,16 +17,16 @@ $(printf "%0.s-" {1..32})
 
 EOF
 
-log_file="../../logs/$(date +'%Y-%d-%m')-hdg-destroy.log"
 args=("apply" "--auto-approve") 
 
 {
     time (
         terraform ${args[0]} ${args[1]} 2>&1 | while IFS= read -r line; do
             printf '%s %s\n' "$(date)" "$line"
+            printf '%s %s\n' "$(date)" "$line" >> tty
         done
     )
-} 2>&1 | tee -a "$log_file" | grep real >> "$log_file"
+} 2>&1 | tee -a "$log_file"
 
 # I copied these over
 log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"

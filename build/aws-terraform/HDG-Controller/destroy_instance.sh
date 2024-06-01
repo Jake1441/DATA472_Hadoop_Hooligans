@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# ensure terraform has been initialised
+bash init_terraform.sh
+
+log_file="../../logs/$(date +'%Y-%d-%m')-hdg-destroy.log"
+
 mc_details=("$(uname)" "$(lsb_release -c | awk '{print $2}')")
-cat << EOF >> "$scraper_log_file"
+cat << EOF >> "$log_file"
 $(printf "%0.s-" {1..32})
 INFORMATION
 
@@ -15,29 +20,26 @@ $(printf "%0.s-" {1..32})
 EOF
 
 # Define log file path for Terraform destroy operation
-destroy_log_file="../../logs/$(date +'%Y-%d-%m')-hdg-destroy.log"
+
 args=("destroy" "--auto-approve") 
+
+echo "running destroy_instance.sh" >> "$log_file"
 
 # Terraform destroy operation logging
 {
     time (
         terraform ${args[0]} ${args[1]} 2>&1 | while IFS= read -r line; do
             printf '%s %s\n' "$(date)" "$line"
+            printf '%s %s\n' "$(date)" "$line" >> tty
         done
     )
-} 2>&1 | tee -a "$destroy_log_file" | grep real >> "$destroy_log_file"
-
-# Define log file path for Python scraper
-scraper_log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
+} 2>&1 | tee -a "$log_file"
 
 # Logging related to Python scraper
-echo "Please check $scraper_log_file to view any activities"
-
-
-echo "running destroy_instance.sh" >> "$scraper_log_file"
+echo "Please check $log_file to view any activities"
 
 # Finish logging for Python scraper
-cat << EOF >> "$scraper_log_file"
+cat << EOF >> "$log_file"
 $(printf "%0.s-" {1..32})
 FINISHED LOGGING
 $(printf "%0.s-" {1..32})
