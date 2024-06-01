@@ -11,21 +11,21 @@ def create_water_reports() -> None:
     Scrap the data on each well from the Ecan website. Creates a folder of csvs one for each well
     """
     all_ecan_data = get_ecan_data()
-    all_ecan_data.drop_duplicates(subset='Well_No', keep='first', inplace=True)
+    all_ecan_data.drop_duplicates(subset="Well_No", keep="first", inplace=True)
     # Prints all the data from the API
-    wrangled_ecan_data = clean_ecan(all_ecan_data)
-    wrangled_ecan_data.to_csv('/app/src/ecan_data.csv')
+    # wrangled_ecan_data = clean_ecan(all_ecan_data)
+    all_ecan_data.to_csv("/app/src/ecan_data.csv")
     # all_ecan_data.to_csv("/app/src/ecan_data.csv")
     # Creates the table if it does not exist.
     ##### UPLOAD ECAN DATA TO DB ########
     # print("Uploading to DB")
     # well_list = all_ecan_data["Well_No"].tolist()
     #####################################
-    codes = wrangled_ecan_data["Well_No"].tolist()
+    codes = all_ecan_data["Well_No"].tolist()
     download_excel_workbook(codes)
     print("Finished Downloading")
 
 
-#ids = ["BW24/0039", "K38/0088", "M35_6639", "L35_0558"]
-#download_excel_workbook(ids)
+# ids = ["BW24/0039", "K38/0088", "M35_6639", "L35_0558"]
+# download_excel_workbook(ids)
 # create_water_reports()
