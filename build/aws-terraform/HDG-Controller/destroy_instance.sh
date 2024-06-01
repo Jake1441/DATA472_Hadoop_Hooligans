@@ -1,5 +1,19 @@
 #!/bin/bash
 
+mc_details=("$(uname)" "$(lsb_release -c | awk '{print $2}')")
+cat << EOF >> "$scraper_log_file"
+$(printf "%0.s-" {1..32})
+INFORMATION
+
+$(printf "%0.s-" {1..32})
+
+You are currently on $HOSTNAME
+Running as user      $(whoami)
+you appear to be running on ${mc_details[0]}\\${mc_details[1]}
+$(printf "%0.s-" {1..32})
+
+EOF
+
 # Define log file path for Terraform destroy operation
 destroy_log_file="../../logs/$(date +'%Y-%d-%m')-hdg-destroy.log"
 args=("destroy" "--auto-approve") 
@@ -19,19 +33,6 @@ scraper_log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
 # Logging related to Python scraper
 echo "Please check $scraper_log_file to view any activities"
 
-mc_details=("$(uname)" "$(lsb_release -c | awk '{print $2}')")
-cat << EOF >> "$scraper_log_file"
-$(printf "%0.s-" {1..32})
-INFORMATION
-
-$(printf "%0.s-" {1..32})
-
-You are currently on $HOSTNAME
-Running as user      $(whoami)
-you appear to be running on ${mc_details[0]}\\${mc_details[1]}
-$(printf "%0.s-" {1..32})
-
-EOF
 
 echo "running destroy_instance.sh" >> "$scraper_log_file"
 
