@@ -1,0 +1,18 @@
+Measurement,Units,Formula,Min Value,Ideal Value,Max Value
+pH,,,7,"[7.4, 8.0]",8.5
+Total Coliforms,number/100mL,,,<1.22,1.22
+E.coli,number/100mL,,,<1.00,1
+Turbidity,NTU,,,1,1
+FAC Free Available Chlorine,mg/L,,1,"[1.0, 5.0]",5
+"Hardness, Total",mg/L,CaCO3,,<=200,200
+Chloride,mg/L,,,<=250,250
+Chlorine,mg/L,Cl2,0.3,"[0.3, 1.0]",5
+"Calcium, Dissolved",mg/L,,100,"[100, 300]",300
+pH (Field),-,,7,7.4 - 8.0,8.5
+"Sodium, Dissolved",mg/L,,,<=200,200
+Sulphate,mg/L,,,<=250,250
+Water Temperature (Field),C,,,<=15,15
+Dissolved Oxygen,% saturation,,85,>85,
+"Magnesium, Dissolved",mg/L,,,<100,100
+"Silica, Reactive",mg/L,,,<=80,80
+Nitrate Nitrogen,mg/L,NO3-N,,<11.3,11.3
