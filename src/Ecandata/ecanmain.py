@@ -15,6 +15,7 @@ def create_water_reports() -> None:
     # Prints all the data from the API
     # wrangled_ecan_data = clean_ecan(all_ecan_data)
     all_ecan_data.to_csv("/app/src/ecan_data.csv")
+
     # all_ecan_data.to_csv("/app/src/ecan_data.csv")
     # Creates the table if it does not exist.
     ##### UPLOAD ECAN DATA TO DB ########
@@ -22,6 +23,7 @@ def create_water_reports() -> None:
     # well_list = all_ecan_data["Well_No"].tolist()
     #####################################
     codes = all_ecan_data["Well_No"].tolist()
+    print(len(codes))
     download_excel_workbook(codes)
     print("Finished Downloading")
 
