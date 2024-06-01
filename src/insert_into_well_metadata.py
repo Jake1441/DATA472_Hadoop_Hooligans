@@ -5,6 +5,10 @@ def insert_into_well_metadata(connection, row):
         INSERT INTO well_metadata
         (
             well_id,
+            well_status,
+            well_type,
+            well_owner,
+            driller,
             primary_use,
             secondary_use,
             latitude,
@@ -22,6 +26,10 @@ def insert_into_well_metadata(connection, row):
          %s,
          %s,
          %s,
+         %s,
+         %s,
+         %s,
+         %s,
          %s
         );
         """
@@ -29,6 +37,10 @@ def insert_into_well_metadata(connection, row):
             insert_into_command,
             (
                 row["Well_No"],
+                row["Well_Status"],
+                row["Well_Type"],
+                row["Well_Owner"],
+                row["Driller"],
                 row["Primary_Use"],
                 row["Secondary_Use"],
                 row["WGS84_LATITUDE"],
