@@ -71,6 +71,7 @@ resource "null_resource" "resume_configuration" {
     inline = [
       "echo 'AWS EC2 CONTROLLER ${var.instance_type}'",
       "echo 'starting scraper ${timestamp()}'",
+      "cd /home/ubuntu/${var.git_repo_dir}",
       "sh controller-main.sh"
 #       "cd /home/ubuntu/${var.git_repo_dir}/build/docker-scraper/",
 #       "alias activate='. ~/.venv/bin/activate'",
