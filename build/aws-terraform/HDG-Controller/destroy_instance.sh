@@ -30,7 +30,6 @@ echo "running destroy_instance.sh" >> "$log_file"
     time (
         terraform ${args[0]} ${args[1]} 2>&1 | while IFS= read -r line; do
             printf '%s %s\n' "$(date)" "$line"
-            printf '%s %s\n' "$(date)" "$line" >> tty
         done
     )
 } 2>&1 | tee -a "$log_file"

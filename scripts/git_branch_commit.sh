@@ -1,4 +1,6 @@
 #!/bin/bash
+log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
+scriptfile='git_branch_commit.sh' # should be script name 
 
 mc_details=("$(uname)" "$(lsb_release -c | awk '{print $2}')")
 cat << EOF >> "$log_file"
@@ -46,9 +48,6 @@ git add .
 
 # finalise by closing out the remote branch
 # git push origin -d $new_branch
-
-log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
-scriptfile='git_branch_commit.sh' # should be script name 
 
 echo "Please check $log_file to view any activities"
 

@@ -45,10 +45,9 @@ resource "null_resource" "build_git_repo" {
       "sudo rm -rf  ${var.git_repo_dir}",
       "git clone -b ${var.git_branch} ${var.git_repo} ${var.git_repo_dir}",
       "cd ${var.git_repo_dir} && git pull origin ${var.git_branch}",
-      "ls -lla",
       "cd /home/ubuntu/${var.git_repo_dir}",
-      "sh setup-controller.sh",
-      "sh controller-main.sh"
+      "mkdir -p logs",
+      "sh setup-controller.sh"
     ]
   }
 }
@@ -71,12 +70,13 @@ resource "null_resource" "resume_configuration" {
   provisioner "remote-exec" {
     inline = [
       "echo 'AWS EC2 CONTROLLER ${var.instance_type}'",
-      "echo 'Resuming Configuration ${timestamp()}'",
-      "cd /home/ubuntu/${var.git_repo_dir}/build/docker-scraper/",
-      "alias activate='. ~/.venv/bin/activate'",
-      "python3 -m venv ~/.venv && activate",
-      "pip install docker",
-      "python3 exportdata.py"
+      "echo 'starting scraper ${timestamp()}'",
+      "sh controller-main.sh"
+#       "cd /home/ubuntu/${var.git_repo_dir}/build/docker-scraper/",
+#       "alias activate='. ~/.venv/bin/activate'",
+#       "python3 -m venv ~/.venv && activate",
+#       "pip install docker",
+#       "python3 exportdata.py"
     ]
   }
 }

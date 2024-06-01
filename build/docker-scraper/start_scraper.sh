@@ -35,7 +35,6 @@ echo "running $scriptfile" >> $log_file
     time ( 
         sudo docker compose down -v | while IFS= read -r line; do 
             printf '%s %s %s %s %s\n' "$HOSTNAME:" "$(whoami)" - "$(date)" "$line"
-            printf '%s %s %s %s %s\n' "$HOSTNAME:" "$(whoami)" - "$(date)" "$line" >>  tty
             done 
         )} 2>&1 | tee -a "$log_file"
 
@@ -43,7 +42,6 @@ echo "running $scriptfile" >> $log_file
     time ( 
         sudo docker compose up | while IFS= read -r line; do 
             printf '%s %s %s %s %s\n' "$HOSTNAME:" "$(whoami)" - "$(date)" "$line"
-            printf '%s %s %s %s %s\n' "$HOSTNAME:" "$(whoami)" - "$(date)" "$line" >>  tty
             done 
         )} 2>&1 | tee -a "$log_file"
         

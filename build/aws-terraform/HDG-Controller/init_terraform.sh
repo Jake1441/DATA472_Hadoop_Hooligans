@@ -39,7 +39,6 @@ echo "running init_instance.sh" >> "$init_log_file"
     time (
         terraform init 2>&1 | while IFS= read -r line; do
             printf '%s %s\n' "$(date)" "$line" 
-            printf '%s %s\n' "$(date)" "$line" >> tty
         done
     )
 } 2>&1 | tee -a "$init_log_file"

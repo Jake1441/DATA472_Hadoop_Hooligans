@@ -1,4 +1,6 @@
 #!/bin/bash
+log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
+scriptfile='find_rename.sh' # should be script name 
 
 mc_details=("$(uname)" "$(lsb_release -c | awk '{print $2}')")
 cat << EOF >> "$log_file"
@@ -15,9 +17,6 @@ $(printf "%0.s-" {1..32})
 EOF
 
 find . -type f -not -path '*/\.git/*' -exec grep -l 'run_docker_scraper.sh' {} \; -exec sed -i 's/run_docker_scraper.sh/start_scraper.sh/g' {} \;
-
-log_file="../../logs/$(date +'%Y-%d-%m-%H:%M')-pythonscraper.log"
-scriptfile='find_rename.sh' # should be script name 
 
 echo "Please check $log_file to view any activities"
 
