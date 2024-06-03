@@ -1,7 +1,7 @@
 variable "name" {
   description = "Value of the Name tag for the EC2 instance"
   type        = string
-  default     = "DATA472-jre141-hdg-controller"
+  default     = "DATA472-jre141-hdg-terraform-testserver"
 }
 
 variable "course" {
@@ -76,6 +76,7 @@ variable "git_branch" {
   default     = "feature-automation"
   type        = string
 }
+
 
 variable "ssh_user" {
   description = "The SSH user to connect to the instance"
